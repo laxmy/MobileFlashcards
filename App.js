@@ -1,17 +1,31 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+iimport { createBottomTabNavigator } from 'react-navigation';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <Text>This is my first app!</Text>
       </View>
     );
   }
 }
+
+const Tabs = createBottomTabNavigator({
+  Decks: {
+    screen: Decks,
+    navigationOptions:{
+      tabBarLabel:'Decks'
+    }
+  },
+  NewDeck: {
+    screen: NewDeck,
+    navigationOptions:{
+      tabBarLabel:'NewDeck'
+    }
+  },
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -21,3 +35,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+const Decks = function(){
+  return(
+    <View>
+    <Text>Decks</Text>
+    </View>)
+};
+
+const NewDecks = function(){
+  return (
+    <View>
+      <Text>NewDeck</Text>
+    </View>
+  )
+}
