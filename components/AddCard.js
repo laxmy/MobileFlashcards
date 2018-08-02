@@ -2,13 +2,19 @@ import  React,{ Component } from 'react';
 import { KeyboardAvoidingView, Text,TextInput, StyleSheet,TouchableOpacity } from 'react-native'
 import { crush,white } from '../utils/colors'
 
-class NewDeck extends Component{
+class AddCard extends Component{
   state={
-    input:"Deck Title"
+    question:"Your Question",
+    answer:"Your answer"
   }
-  handleTextChange=(input)=>{
+  handleQuestionChange=(input)=>{
     this.setState(()=>({
-      input
+      question
+    }))
+  }
+  handleAnswerChange=(input)=>{
+    this.setState(()=>({
+      answer
     }))
   }
 
@@ -18,10 +24,10 @@ class NewDeck extends Component{
   render(){
     return(
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
-         <Text>Type in the name of the new deck</Text>
-        <TextInput style={styles.input} value={this.state.input} onChange={this.handleTextChange}/>
+        <TextInput style={styles.input} value={this.state.question} onChange={this.handleQuestionChange}/>
+        <TextInput style={styles.input} value={this.state.answer} onChange={this.handleAnswerChange}/>
         <TouchableOpacity style={styles.btn} onPress={this.handlePress}>
-        <Text>Submit</Text>
+          <Text>Submit</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     )}
@@ -49,4 +55,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck
+export default AddCard

@@ -1,7 +1,10 @@
-iimport React from 'react';
+import React from 'react';
 import { StyleSheet, Text, View,Platform } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import Decks from './components/Decks'
+import NewDeck from './components/NewDeck'
+import { crush, white } from './utils/colors'
 
 const styles = StyleSheet.create({
   container: {
@@ -16,13 +19,14 @@ const Tabs = createBottomTabNavigator({
     screen: Decks,
     navigationOptions:{
     tabBarLabel:'Decks',
-    tabBarIcon:  <MaterialCommunityIcons name='cards' size={30} color={tintColor} />
+    tabBarIcon:  <MaterialCommunityIcons name='cards' size={30}
+    color={crush} />
     },
     tabBarOptions: {
-    activeTintColor: Platform.OS === 'ios' ? '#292477' : '#fff',
+    activeTintColor: Platform.OS === 'ios' ? {crush} : {white},
     style: {
       height: 56,
-      backgroundColor: Platform.OS === 'ios' ? '#fff' : '#292477',
+      backgroundColor: Platform.OS === 'ios' ? {white} : {crush},
     }
     }
   },
@@ -34,10 +38,10 @@ const Tabs = createBottomTabNavigator({
       size={30} color={tintColor} />
     },
     tabBarOptions: {
-    activeTintColor: Platform.OS === 'ios' ? '#292477' : '#fff',
+    activeTintColor: Platform.OS === 'ios' ? {crush} : {white},
     style: {
       height: 56,
-      backgroundColor: Platform.OS === 'ios' ? '#fff' : '#292477',
+      backgroundColor: Platform.OS === 'ios' ? {white} : {crush},
      }
     }
     }
