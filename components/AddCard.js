@@ -3,10 +3,22 @@ import { KeyboardAvoidingView, Text,TextInput, StyleSheet,TouchableOpacity } fro
 import { crush,white } from '../utils/colors'
 
 class AddCard extends Component{
-  state={
-    question:"Your Question",
-    answer:"Your answer"
-  }
+  state = {
+   question: '',
+   answer: ''
+ }
+
+ addCard = () => {
+   const { navigation, dispatch } = this.props
+   const { question, answer } = this.state
+
+   const deckId = (navigation.state.params.title).toLowerCase()
+   dispatch(addCard(deckId, { question, answer }))
+   AddCardToDeck(deckId, { question, answer })
+
+   navigation.goBack()
+ }
+
   handleQuestionChange=(input)=>{
     this.setState(()=>({
       question
@@ -18,15 +30,13 @@ class AddCard extends Component{
     }))
   }
 
-  handlePress=()=>{
-    console.log(this.state.input)
-  }
+
   render(){
     return(
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <TextInput style={styles.input} value={this.state.question} onChange={this.handleQuestionChange}/>
         <TextInput style={styles.input} value={this.state.answer} onChange={this.handleAnswerChange}/>
-        <TouchableOpacity style={styles.btn} onPress={this.handlePress}>
+        <TouchableOpacity style={styles.btn} onPress={this.addCard}>
           <Text>Submit</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>

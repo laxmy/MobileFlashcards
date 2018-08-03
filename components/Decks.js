@@ -6,21 +6,23 @@ import { fetchAllDecks } from '../utils/api'
 class Decks extends Component{
   state = {}
   componentDidMount(){
-    let dummyData = fetchAllDecks()
-    this.setState({
-      decks: dummyData
-    })
+    let receivedData = fetchAllDecks().then(
+      receivedData =>  {
+        this.setState({
+          decks: receivedData
+        })
+      })
   }
   renderItem =({item})=>{
-    return <SingleDeck Item={item}/>
+    return <SingleDeck Item={item} Navigation={this.props.navigation}/>
   }
   render(){
-    console.log(this.state.decks)
-    return(
+    const decks = this.state.decks && Object.keys(this.state.decks).map(key=>this.state.decks[key])
+    return (
       <View style={styles.container}>
-    //  <FlatList data={this.state.decks} renderItem={this.renderItem}/>
-      </View>)
-  }
+      <FlatList data={ decks } keyExtractor={(item)=>item.title} renderItem={this.renderItem}/>
+      </View>
+    )}
 }
 const styles = StyleSheet.create({
   container: {
