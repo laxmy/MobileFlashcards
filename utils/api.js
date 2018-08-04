@@ -2,7 +2,6 @@ import { AsyncStorage } from 'react-native'
 import { DECKS_KEY ,formatResult} from './_decks'
 
 export function fetchAllDecks () {
- AsyncStorage.clear()
  return AsyncStorage.getItem(DECKS_KEY)
     .then(formatResult);
 }

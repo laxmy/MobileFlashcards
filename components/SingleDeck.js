@@ -3,21 +3,47 @@ import { View,Text,StyleSheet,TouchableOpacity } from 'react-native'
 import { crush, cyprus, white, silver } from '../utils/colors'
 import Card from './Card'
 import AddCard from './AddCard'
+import { getDeck } from '../utils/api'
 
-function SingleDeck(props){
+class SingleDeck extends Component{
+  state={
+  }
+  fetchDataFromStore =(deckId)=>{
+    getDeck(deckId).then(result =>{
+        this.setState(()=>({
+        deck : result
+      }))
+    })
+  }
+  componentDidMount(){
+    const deckId = this.props.navigation.state.params.itemID
+    this.fetchDataFromStore(deckId)
+  }
+  refreshNeeded =(isNeeded)=>{
+    if(isNeeded){
+      this.fetchDataFromStore(this.state.deck.title)
+    }
+  }
 
-  return (
-    <View style={ styles.deckItemContainer }>
-    <Text style={ styles.deckTitle }>{props.Item.title}</Text>
-    <Text>{`${props.Item.questions.length} Cards`}</Text>
-    <TouchableOpacity style={styles.btn} onPress={()=>props.Navigation.navigate('AddCard',{deckId: props.Item.title})}>
-      <Text style={styles.btnText}>Add Card</Text>
-    </TouchableOpacity>
-    <TouchableOpacity style={styles.btn} onPress={() => props.Navigation.navigate('Card',{deckId: props.Item.title})}>
-      <Text style={styles.btnText}>Start Quiz</Text>
-    </TouchableOpacity>
-    </View>
-  )
+  render(){
+    const navigation = this.props.navigation
+    const item = this.state.deck
+
+    return item ? (
+      <View style={ styles.deckItemContainer }>
+      <Text style={ styles.deckTitle }>{item.title}</Text>
+      <Text style={styles.subTitleText}>{`${item.questions.length} Cards`}</Text>
+      <TouchableOpacity style={styles.btn} onPress={()=>navigation.navigate('AddCard',{deckId: item.title,refreshNeeded:this.refreshNeeded})}>
+        <Text style={styles.btnText}>Add Card</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Card',{deck: item})}>
+        <Text style={styles.btnText}>Start Quiz</Text>
+      </TouchableOpacity>
+      </View>
+    ):(
+      <View>nothing</View>
+    )
+  }
 }
 const styles = StyleSheet.create({
   deckItemContainer:{
@@ -48,6 +74,10 @@ const styles = StyleSheet.create({
     color: white,
     padding: 8,
     alignSelf: 'center'
+  },
+  subTitleText:{
+    color: crush,
+    margin:10
   }
 })
 

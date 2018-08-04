@@ -22,8 +22,8 @@ const Tabs = createBottomTabNavigator({
     navigationOptions:{
     tabBarLabel:'Decks',
     tabBarIcon: ({tintColor})=> <MaterialCommunityIcons name='cards' size={30}
-    color={tintColor} />
-    }
+    color={tintColor} />,
+   }
   },
   NewDeck: {
     screen: NewDeck,
@@ -35,6 +35,7 @@ const Tabs = createBottomTabNavigator({
   }
 },
   {
+    animationEnabled: true,
     tabBarOptions: {
     activeTintColor: Platform.OS === 'ios' ? crush : white,
     style: {
@@ -56,6 +57,9 @@ const DeckNavigator = createStackNavigator({
   },
   AddCard:{
     screen: AddCard
+  },
+  SingleDeck:{
+    screen: SingleDeck
   }
 });
 

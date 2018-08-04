@@ -2,6 +2,7 @@ import  React,{ Component } from 'react';
 import { KeyboardAvoidingView, Text,TextInput, StyleSheet,TouchableOpacity } from 'react-native'
 import { crush, white, cyprus, grey } from '../utils/colors'
 import { addCardToDeck } from '../utils/api'
+
 class AddCard extends Component{
   state = {
    question: '',
@@ -11,12 +12,14 @@ class AddCard extends Component{
  addCard = () => {
    const { navigation, dispatch } = this.props
    const { question, answer } = this.state
-
    const deckId = (navigation.state.params.deckId)
 
-   addCardToDeck(deckId, { question, answer })
+   addCardToDeck(deckId, { question, answer }).then(()=>
+   {
+     navigation.state.params.refreshNeeded(true);
+     navigation.goBack();
+   })
 
-   navigation.goBack()
  }
 
   handleQuestionChange=(input)=>{
@@ -32,7 +35,7 @@ class AddCard extends Component{
 
 
   render(){
-    console.log(this.props.navigation.state.params.deckId)
+
     return(
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <TextInput style={styles.input} value={this.state.question} placeholder="Type in your question" placeholderTextColor={grey} onChangeText={this.handleQuestionChange}/>

@@ -1,29 +1,30 @@
 import  React,{ Component } from 'react';
 import { KeyboardAvoidingView, Text,TextInput, StyleSheet,TouchableOpacity } from 'react-native'
-import { crush, white, cyprus } from '../utils/colors'
-import {saveDeckTitle} from '../utils/api'
+import { crush, white, cyprus , grey} from '../utils/colors'
+import { saveDeckTitle } from '../utils/api'
 
 class NewDeck extends Component{
   state={
     input:"Deck Title"
   }
   handleTextChange=(input)=>{
-    console.log(input)
     this.setState(()=>({
       input
     }))
   }
 
   handlePress=()=>{
-    console.log(this.state.input)
-    saveDeckTitle(this.state.input)
-    this.props.navigation.goBack()
+    saveDeckTitle(this.state.input).then(()=>{
+    this.props.navigation.navigate('SingleDeck',{itemID:this.state.input})
+    this.setState(()=>{input:''})
+    })
   }
+
   render(){
     const { input } = this.state
     return(
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
-         <Text>Type in the name of the new deck</Text>
+         <Text placeholder="Type in the name of the new deck" placeholderTextColor={grey}></Text>
         <TextInput style={styles.input} value={input} onChangeText={this.handleTextChange}/>
         <TouchableOpacity style={styles.btn} onPress={this.handlePress}>
         <Text style={styles.btnText}>Submit</Text>
