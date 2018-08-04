@@ -1,18 +1,20 @@
 import React, { Component} from 'react'
 import { View,Text,StyleSheet,TouchableOpacity } from 'react-native'
-import { crush, ripple, seafloor} from '../utils/colors'
+import { crush, cyprus, white, silver } from '../utils/colors'
 import Card from './Card'
 import AddCard from './AddCard'
 
-function SingleDeck(props,{navigation}){
+function SingleDeck(props){
+
   return (
     <View style={ styles.deckItemContainer }>
     <Text style={ styles.deckTitle }>{props.Item.title}</Text>
     <Text>{`${props.Item.questions.length} Cards`}</Text>
-    <TouchableOpacity onPress={()=>props.Navigation.navigate('AddCard',{})}>
-    Add Card</TouchableOpacity>
-    <TouchableOpacity onPress={() => props.Navigation.navigate('Card',{})}>
-      <Text>Start Quiz</Text>
+    <TouchableOpacity style={styles.btn} onPress={()=>props.Navigation.navigate('AddCard',{deckId: props.Item.title})}>
+      <Text style={styles.btnText}>Add Card</Text>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.btn} onPress={() => props.Navigation.navigate('Card',{deckId: props.Item.title})}>
+      <Text style={styles.btnText}>Start Quiz</Text>
     </TouchableOpacity>
     </View>
   )
@@ -23,13 +25,29 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     height:200,
-    width:200,
-    borderColor:seafloor,
-    backgroundColor:ripple,
+    width: 400,
+    borderColor: cyprus,
+    borderWidth: 2,
+    borderRadius: 10,
     margin:10
   },
   deckTitle:{
-    color:crush
+    color: cyprus,
+    fontSize: 18,
+    fontWeight: 'bold',
+    lineHeight: 20,
+    padding: 10
+  },
+  btn:{
+    backgroundColor: crush,
+    width: 200,
+    borderRadius: 5,
+    margin: 5
+  },
+  btnText:{
+    color: white,
+    padding: 8,
+    alignSelf: 'center'
   }
 })
 

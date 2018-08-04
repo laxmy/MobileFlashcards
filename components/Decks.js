@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { FlatList,View,Text, StyleSheet } from 'react-native'
 import SingleDeck from './SingleDeck'
 import { fetchAllDecks } from '../utils/api'
+import { silver } from '../utils/colors'
 
 class Decks extends Component{
   state = {}
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
     flex:1,
     alignItems:'center',
     justifyContent:'center',
+    backgroundColor: silver
   }
 })
 

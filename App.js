@@ -6,6 +6,7 @@ import Decks from './components/Decks'
 import NewDeck from './components/NewDeck'
 import SingleDeck from './components/SingleDeck'
 import Card from './components/Card'
+import AddCard from './components/AddCard'
 import { crush, white } from './utils/colors'
 
 const styles = StyleSheet.create({
@@ -15,48 +16,48 @@ const styles = StyleSheet.create({
   },
 });
 
-
 const Tabs = createBottomTabNavigator({
   Decks: {
     screen: Decks,
     navigationOptions:{
     tabBarLabel:'Decks',
-    tabBarIcon:  <MaterialCommunityIcons name='cards' size={30}
-    color={crush} />
-    },
-    tabBarOptions: {
-    activeTintColor: Platform.OS === 'ios' ? {crush} : {white},
-    style: {
-      height: 56,
-      backgroundColor: Platform.OS === 'ios' ? {white} : {crush},
-    }
+    tabBarIcon: ({tintColor})=> <MaterialCommunityIcons name='cards' size={30}
+    color={tintColor} />
     }
   },
   NewDeck: {
     screen: NewDeck,
     navigationOptions:{
       tabBarLabel:'NewDeck',
-      tabBarIcon: ({ tintColor }) =><Ionicons name='md-add'
+      tabBarIcon:({tintColor})=><Ionicons name='md-add'
       size={30} color={tintColor} />
     },
+  }
+},
+  {
     tabBarOptions: {
-    activeTintColor: Platform.OS === 'ios' ? {crush} : {white},
+    activeTintColor: Platform.OS === 'ios' ? crush : white,
     style: {
       height: 56,
-      backgroundColor: Platform.OS === 'ios' ? {white} : {crush},
-     }
-    }
-  }
-  });
-  const DeckNavigator = createStackNavigator({
-    Home: {
-      screen: Tabs
+      backgroundColor: Platform.OS === 'ios' ? white: crush,
     },
-    Card: {
-      screen: Card
-    }
-  });
+    labelStyle:{
+      fontSize:14
+    },
+  }
+})
 
+const DeckNavigator = createStackNavigator({
+  Home: {
+    screen: Tabs
+  },
+  Card: {
+    screen: Card
+  },
+  AddCard:{
+    screen: AddCard
+  }
+});
 
 export default class App extends React.Component {
   render() {
