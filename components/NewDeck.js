@@ -19,6 +19,9 @@ class NewDeck extends Component{
     this.setState(()=>{input:''})
     })
   }
+  static navigationOptions =() => {
+    title:'Add Deck'
+  }
 
   render(){
     const { input } = this.state

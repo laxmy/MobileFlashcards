@@ -5,6 +5,7 @@ import Card from './Card'
 import AddCard from './AddCard'
 import { getDeck } from '../utils/api'
 
+
 class SingleDeck extends Component{
   state={
   }
@@ -15,6 +16,9 @@ class SingleDeck extends Component{
       }))
     })
   }
+  static navigationOptions = ({navigation}) => {
+   return {title: `${navigation.params.itemID}`}
+  }
   componentDidMount(){
     const deckId = this.props.navigation.state.params.itemID
     this.fetchDataFromStore(deckId)
@@ -22,6 +26,7 @@ class SingleDeck extends Component{
   refreshNeeded =(isNeeded)=>{
     if(isNeeded){
       this.fetchDataFromStore(this.state.deck.title)
+      this.props.navigation.state.params.refreshListNeeded(true)
     }
   }
 

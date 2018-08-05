@@ -8,6 +8,7 @@ import SingleDeck from './components/SingleDeck'
 import Card from './components/Card'
 import AddCard from './components/AddCard'
 import { crush, white } from './utils/colors'
+import { setLocalNotification }  from './utils/helpers'
 
 const styles = StyleSheet.create({
   container: {
@@ -61,9 +62,26 @@ const DeckNavigator = createStackNavigator({
   SingleDeck:{
     screen: SingleDeck
   }
-});
+},
+  {
+    initialRouteName: 'Home',
+
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: crush,
+      },
+      headerTintColor: white,
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
+  }
+);
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
   render() {
     return (
       <DeckNavigator/>

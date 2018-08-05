@@ -4,6 +4,9 @@ import { crush, white, cyprus, grey } from '../utils/colors'
 import { addCardToDeck } from '../utils/api'
 
 class AddCard extends Component{
+  static navigationOptions = () => ({
+    title:'Add Card'
+  })
   state = {
    question: '',
    answer: ''

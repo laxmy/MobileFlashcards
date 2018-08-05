@@ -7,12 +7,30 @@ import { silver, cyprus , crush } from '../utils/colors'
 class Decks extends Component{
   state = {}
 
+  static navigationOptions = () => {
+    return {
+      title:'Decks',
+      tabBarOnPress: ({ navigation, defaultHandler }) => {
+        if (navigation.isFocused()) {
+          return;
+        }
+        navigation.state.params.onTabFocus();
+        defaultHandler();
+      },
+    };
+  };
+
   componentDidMount(){
    this.fetchDataFromStore()
+   this.props.navigation.setParams({
+     onTabFocus: this.handleTabFocus
+   })
   }
-  componentWillBlur(){
-    console.log("Switching")
+
+  handleTabFocus = () => {
+   this.refreshNeeded(true)
   }
+
   fetchDataFromStore = ()=>{
     let receivedData = fetchAllDecks().then(
       receivedData =>  {
@@ -27,7 +45,7 @@ class Decks extends Component{
   }
 
   handleOnPress = (item)=>{
-    this.props.navigation.navigate('SingleDeck',{itemID:item.title, refreshNeeded:this.refreshNeeded})
+    this.props.navigation.navigate('SingleDeck',{itemID:item.title, refreshListNeeded:this.refreshNeeded})
   }
 
   renderItem =({item })=>{

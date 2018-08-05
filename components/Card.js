@@ -4,6 +4,10 @@ import { crush, white, cyprus } from '../utils/colors'
 import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 class Card extends Component{
+  static navigationOptions = () => {
+    const { currentIndex, cards} =this.state
+    headerTitle: <Text style={styles.cardPos}>{`${currentIndex+1}/${cards.length}`}</Text>
+  }
   state={
     currentIndex:0,
     cards:[],
@@ -55,7 +59,7 @@ setNotification =()=>{
    const{ cards, currentIndex, isFlipped, finishedQuiz, score } = this.state
    return (
      <View style={styles.container}>
-     <Text style={styles.cardPos}>{`${currentIndex+1}/${cards.length}`}</Text>
+
      {
        finishedQuiz ?
         <View>
