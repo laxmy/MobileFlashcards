@@ -5,9 +5,16 @@ import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 class Card extends Component{
   static navigationOptions = () => {
-    const { currentIndex, cards} =this.state
-    headerTitle: <Text style={styles.cardPos}>{`${currentIndex+1}/${cards.length}`}</Text>
+    return { title:''}
   }
+  /*setHeaderTitle = () => {
+    const { currentIndex, cards} =this.state
+    const {setParams} = this.props.navigation
+    const titleText =
+    console.log(titleText)
+    console.log(setParams)
+    setParams({ title: titleText })
+}*/
   state={
     currentIndex:0,
     cards:[],
@@ -59,20 +66,22 @@ setNotification =()=>{
    const{ cards, currentIndex, isFlipped, finishedQuiz, score } = this.state
    return (
      <View style={styles.container}>
-
      {
        finishedQuiz ?
         <View>
           <Text style={styles.titleText}>Your score: { Math.round((score/cards.length)*100) }%</Text>
           <Text style={styles.titleText}>{ score } correct answers out of { cards.length }</Text>
           <Button
-            style={styles.btn}
+            color={crush}
             title="Start again"
             onPress={this.startAgain}
           />
         </View>
        :
         <View>
+        <View style={styles.top}>
+         <Text>{`${currentIndex+1}/${cards.length}`}</Text>
+        </View>
         { isFlipped ?
         <View>
           <Text style={styles.titleText}>{cards[currentIndex] && cards[currentIndex].answer}</Text>
@@ -122,6 +131,9 @@ const styles = StyleSheet.create({
     color: white,
     padding: 8,
     alignSelf: 'center'
+  },
+  top:{
+    alignSelf:'flex-start'
   }
 })
 

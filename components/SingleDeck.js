@@ -17,7 +17,8 @@ class SingleDeck extends Component{
     })
   }
   static navigationOptions = ({navigation}) => {
-   return {title: `${navigation.params.itemID}`}
+    const nav = navigation
+   return {title: `${nav.state.params.itemID}`}
   }
   componentDidMount(){
     const deckId = this.props.navigation.state.params.itemID
